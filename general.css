@@ -1,0 +1,61 @@
+body {
+  background-color: rgb(205, 205, 205);
+}
+
+.to_do_container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+
+  width: fit-content;
+}
+
+form {
+  & .input_div {
+    display: grid;
+    grid-template-columns: 25% 75%;
+
+    & ::placeholder {
+      color: rgb(32, 32, 32);
+      text-transform: capitalize;
+    }
+  }
+
+  & .button_div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem 0.5rem;
+  }
+}
+
+tr {
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+
+  &:not(:last-child) {
+    border-bottom: 2px black dashed;
+  }
+}
+
+td:first-child {
+  font-size: 15px;
+  font-weight: bolder;
+
+  background-color: white;
+  text-align: center;
+  min-width: 20px;
+  min-height: 20px;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+td:last-child {
+  font-size: 20px;
+}

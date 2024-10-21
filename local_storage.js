@@ -9,25 +9,33 @@ let toDoArr = localStorage.getItem("items")
   ? JSON.parse(localStorage.getItem("items"))
   : [];
 
-toDoArr.forEach(makeLi);
+toDoArr.forEach(makeItem);
 
-//her laver jeg mine li elementer med input valuen
+//her laver jeg mine todo elementer med input valuen
 //text er blevet sent fra add() som er input valuen
-function makeLi(text) {
-  const li = document.createElement("li");
-  li.textContent = text;
+function makeItem(text) {
+  // const li = document.createElement("li");
+  const tr = document.createElement("tr");
 
-  $("ul").appendChild(li);
+  tr.innerHTML = `<td>${text.amount || "1"}  </td>` + `<td>${text.item}</td>`;
+
+  $("tbody").appendChild(tr);
 }
 
 function add() {
-  toDoArr.push($("input").value);
+  const toDOitem = {
+    item: $("#item").value.trim(),
+    amount: $("#amount").value.trim(),
+  };
+
+  toDoArr.push(toDOitem);
 
   localStorage.setItem("items", JSON.stringify(toDoArr));
 
-  makeLi($("input").value);
+  //vi laver det første objekt inde todoaray
+  makeItem(toDoArr[toDoArr.length - 1]);
 
-  $("input").value = "";
+  $("input").value = " ";
 }
 
 function remove() {
@@ -36,12 +44,12 @@ function remove() {
 
 function clear() {
   localStorage.clear();
-  $("ul").innerHTML = " ";
+  $("tbody").innerHTML = " ";
 }
 
-$("ul").addEventListener("mousedown", (event) => {
-  if (event.target.tagName === "LI") {
-    console.log("li was clicked");
-    localStorage.removeItem("items");
-  }
-});
+// $("tbody").addEventListener("mousedown", (event) => {
+//   if (event.target.tagName === "LI") {
+//     console.log("li was clicked");
+//     localStorage.removeItem("items");
+//   }
+// });

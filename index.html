@@ -5,24 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="general.css">
 </head>
 
 <body>
     <div class="to_do_container">
-        <h1>inkøbs liste</h1>
-        <label for="item">mad varen</label>
-        <br>
-        <input type="text" id="item" placeholder="Tilføj" required>
-        <label for="amount">inkøbs liste</label>
-        <br>
-        <input type="number" id="amount" placeholder="antalet af varen" required>
+        <h1>Mine indkøb</h1>
+        <form>
+            <div class="input_div">
+                <input type="number" id="amount" placeholder="antalet">
+                <input type="text" id="item" placeholder="mad vare" required>
+            </div>
 
-        <button class="add">Tilføj item</button>
-        <button class="remove">Fjern item</button>
-        <button class="clear">Slet alle</button>
+            <br>
+            <div class="button_div">
+                <button class="add">Tilføj item</button>
+                <button class="remove">Fjern item</button>
+                <button class="clear">Slet alle</button>
+            </div>
+        </form>
+
+
     </div>
 
-    <ul class="to_do_list"></ul>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>indkøbsliste</th>
+
+            </tr>
+        </thead>
+        <tbody class="to_do_list"></tbody>
+
+
+    </table>
 
     <script type="module" src="local_storage.js"></script>
 
