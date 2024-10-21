@@ -9,6 +9,10 @@ let toDoArr = localStorage.getItem("items")
   ? JSON.parse(localStorage.getItem("items"))
   : [];
 
+let doneArr = localStorage.getItem("items")
+  ? JSON.parse(localStorage.getItem("items"))
+  : [];
+
 toDoArr.forEach(makeItem);
 
 //her laver jeg mine todo elementer med input valuen
@@ -17,7 +21,10 @@ function makeItem(text) {
   // const li = document.createElement("li");
   const tr = document.createElement("tr");
 
-  tr.innerHTML = `<td>${text.amount || "1"}  </td>` + `<td>${text.item}</td>`;
+  tr.innerHTML =
+    `<td>${text.amount || "1"}  </td>` +
+    `<td>${text.item}</td>` +
+    `<button class="check">check</button>`;
 
   $("tbody").appendChild(tr);
 }
@@ -43,14 +50,11 @@ function add() {
   }
 }
 
+function checkPush() {
+  console.log("check");
+}
+
 function clear() {
   localStorage.clear();
   $("tbody").innerHTML = " ";
 }
-
-// $("tbody").addEventListener("mousedown", (event) => {
-//   if (event.target.tagName === "LI") {
-//     console.log("li was clicked");
-//     localStorage.removeItem("items");
-//   }
-// });

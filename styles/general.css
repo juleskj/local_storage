@@ -123,17 +123,20 @@ button {
   --flow-space: 0.5rlh;
 }
 
-body {
-  background-color: rgb(205, 205, 205);
+main {
+  justify-items: center;
 }
 
 .to_do_container {
-  background-color: var(--white);
   padding: 20px;
   border-radius: 15px;
 
   display: grid;
   grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+  align-items: start;
+  justify-items: center;
+
+  text-transform: capitalize;
 
   width: fit-content;
 }
@@ -142,6 +145,8 @@ form {
   & :is(button, input) {
     background-color: rgb(216, 216, 216);
     outline: rgb(72, 72, 72) 2px solid;
+    border-radius: var(--border-radius);
+    padding: 5px;
   }
   & .input_div {
     display: grid;
@@ -166,29 +171,53 @@ form {
   }
 }
 
+table {
+  max-width: 65ch;
+  margin: 50px 0;
+
+  & th {
+    margin-right: auto;
+  }
+}
+
 tr {
   text-transform: capitalize;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  max-width: 65ch;
+  justify-content: flex-end;
+  gap: 2rem;
+
   padding: 5px;
+
+  & td {
+    margin: 5px 0;
+  }
+
+  & td:first-child {
+    display: grid;
+    place-content: center;
+
+    font-weight: bolder;
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+
+    width: 2rem;
+    height: 2rem;
+    outline: var(--black) 2px solid;
+
+    margin-right: auto;
+  }
 
   &:not(:last-child) {
     border-bottom: 2px var(--black) dashed;
   }
 }
 
-td:first-child {
-  display: grid;
-  place-content: center;
-
-  font-weight: bolder;
+.check {
+  background-color: rgb(129, 211, 129);
+  color: var(--white);
+  padding-inline: 20px;
+  text-transform: capitalize;
   border-radius: var(--border-radius);
-  background-color: var(--white);
-
-  width: 2rem;
-  height: 2rem;
-  outline: var(--black) 2px solid;
 }
