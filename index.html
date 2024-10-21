@@ -5,42 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="general.css">
+    <link rel="stylesheet" href="styles/global.css">
 </head>
 
 <body>
-    <div class="to_do_container">
-        <h1>Mine indkøb</h1>
-        <form>
-            <div class="input_div">
-                <input type="number" id="amount" placeholder="antalet">
-                <input type="text" id="item" placeholder="mad vare" required>
-            </div>
+    <main>
+        <div class="to_do_container">
+            <h1>Mine indkøb</h1>
+            <form>
+                <div class="input_div">
+                    <input type="number" id="amount" placeholder="antalet">
+                    <input type="text" id="item" placeholder="mad vare" required>
+                </div>
 
-            <br>
-            <div class="button_div">
-                <button class="add">Tilføj item</button>
-                <button class="remove">Fjern item</button>
-                <button class="clear">Slet alle</button>
-            </div>
-        </form>
-
-
-    </div>
+                <br>
+                <div class="button_div">
+                    <button class="add">Tilføj item</button>
+                    <button class="remove">Fjern item</button>
+                    <button class="clear">Slet alle</button>
+                </div>
+            </form>
 
 
-    <table>
-
-        <thead>
-            <tr>
-                <th>indkøbsliste</th>
-
-            </tr>
-        </thead>
-        <tbody class="to_do_list"></tbody>
+        </div>
 
 
-    </table>
+        <table>
+
+            <thead>
+                <tr>
+                    <th>indkøbsliste</th>
+
+                </tr>
+            </thead>
+            <tbody class="to_do_list"></tbody>
+
+
+        </table>
+    </main>
+
 
     <script type="module" src="local_storage.js"></script>
 

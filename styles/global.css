@@ -1,0 +1,47 @@
+@layer reset, general, overwrite;
+
+@import url("./reset.css") layer(reset);
+@import url("./general.css") layer(general);
+@import url("./overwrite.css") layer(overwrite);
+
+@layer global {
+  /* her er mit layout med grid og subgrid, hvor jeg har lavet full-bleed og featured */
+  body {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns:
+      [full-start] var(--full-width) [feature-start] var(--feature-width)
+      [content] var(--content-width) var(--feature-width) [feature-end] var(
+        --full-width
+      )
+      [full-end];
+  }
+
+  /* her gør jeg at min header, footer og main har samme grid som body, da jeg gerne have at de kan være 
+full bleed men deres content, som tekst skal være inde i content */
+  header,
+  footer,
+  main {
+    grid-column: full;
+    display: grid;
+    grid-template-columns: subgrid;
+    gap: 0 1rem;
+    > * {
+      grid-column: content;
+    }
+  }
+
+  .full-bleed {
+    grid-column: full;
+    display: grid;
+    grid-template-columns: subgrid;
+
+    > * {
+      grid-column: content;
+    }
+  }
+
+  .feature {
+    grid-column: feature;
+  }
+}

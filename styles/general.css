@@ -1,0 +1,193 @@
+:root {
+  --content-width: min(1000px, 100% - 1rem * 2);
+  --full-width: minmax(1rem, 1fr);
+  --feature-width: minmax(0, 2rem);
+  --flow-space: 0.5rlh;
+  --border-radius: 42px;
+  --small-border-radius: 20px;
+
+  /* padding */
+  --small-padding: 4px 16px;
+  --big-padding: 15px 45px;
+  --big-bottom-padding: 35px 25px;
+
+  --even-padding-xs: 15px;
+  --even-padding-s: 35px;
+  --even-padding-m: 45px;
+  --even-padding-l: 55px;
+
+  /* colors */
+  --beige: #efeae6;
+  --black: #131313;
+  --white: #fffef5;
+  --orange: #e9543b;
+  --blue: #3b4294;
+  --light-blue: #94d4ee;
+  --yellow: #f4c872;
+  /* font sizes */
+
+  --fluid-h1: clamp(2.8125rem, 2.5951rem + 1.087vw, 3.4375rem);
+  --fluid-h2: clamp(2.1875rem, 1.9701rem + 1.087vw, 2.8125rem);
+  --fluid-h3: clamp(1.875rem, 1.6576rem + 1.087vw, 2.5rem);
+  --fluid-h4: clamp(1.5625rem, 1.3451rem + 1.087vw, 2.1875rem);
+  --fluid-h5: clamp(1.4375rem, 1.2853rem + 0.7609vw, 1.875rem);
+  --fluid-h6: clamp(1.25rem, 1.1413rem + 0.5435vw, 1.5625rem);
+  --fluid-p: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+lh {
+  color: var(--black);
+  font-family: "Cabin", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}
+
+h1 {
+  font-size: var(--fluid-h1);
+}
+h2 {
+  font-size: var(--fluid-h2);
+}
+h3 {
+  font-size: var(--fluid-h3);
+}
+h4 {
+  font-size: var(--fluid-h4);
+}
+h5 {
+  font-size: var(--fluid-h5);
+}
+h6,
+lh {
+  font-size: var(--fluid-h6);
+}
+
+p {
+  max-width: 70ch;
+}
+
+p,
+ul,
+ol {
+  color: var(--black);
+  font-size: var(--fluid-p);
+  font-style: normal;
+  font-weight: 500;
+  --flow-space: 0.5em;
+}
+
+p {
+  max-width: 70ch;
+}
+/* 
+ For `h2`, sæt `—flow-space`-værdien til `2rlh`. */
+h1,
+h2 {
+  --flow-space: 1rlh;
+}
+
+/* 
+For `h3`, sæt `—flow-space`-værdien til `1rlh`. */
+h3,
+h4 {
+  --flow-space: 0.5rlh;
+
+  /* 
+  For alle elementer, der kommer lige 
+    efter **`h3`**, reducér `—flow-space` til `.25rlh`. */
+
+  & > {
+    --flow-space: 0.25rlh;
+  }
+}
+
+h5,
+h6 {
+  --flow-space: 0.5rlh;
+}
+
+em {
+  color: var(--orange);
+}
+
+button {
+  --flow-space: 0.5rlh;
+}
+
+body {
+  background-color: rgb(205, 205, 205);
+}
+
+.to_do_container {
+  background-color: var(--white);
+  padding: 20px;
+  border-radius: 15px;
+
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+
+  width: fit-content;
+}
+
+form {
+  & :is(button, input) {
+    background-color: rgb(216, 216, 216);
+    outline: rgb(72, 72, 72) 2px solid;
+  }
+  & .input_div {
+    display: grid;
+    grid-template-columns: 25% auto;
+    gap: 0.5rem;
+
+    & ::placeholder {
+      color: rgb(32, 32, 32);
+      text-transform: capitalize;
+    }
+  }
+
+  & .button_div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem 0.5rem;
+
+    & .clear {
+      background-color: rgb(235, 40, 40);
+      color: var(--white);
+    }
+  }
+}
+
+tr {
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+
+  &:not(:last-child) {
+    border-bottom: 2px var(--black) dashed;
+  }
+}
+
+td:first-child {
+  display: grid;
+  place-content: center;
+
+  font-weight: bolder;
+  border-radius: var(--border-radius);
+  background-color: var(--white);
+
+  width: 2rem;
+  height: 2rem;
+  outline: var(--black) 2px solid;
+}

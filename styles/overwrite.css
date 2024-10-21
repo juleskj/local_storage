@@ -1,0 +1,10 @@
+body {
+  --flow-space: 1rem;
+
+  article,
+  section {
+    > * + * {
+      margin-block-start: var(--flow-space, 1em);
+    }
+  }
+}
