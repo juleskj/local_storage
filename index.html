@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="to_do_container">
+        <h1>inkøbs liste</h1>
+        <label for="item">mad varen</label>
+        <br>
+        <input type="text" id="item" placeholder="Tilføj" required>
+        <label for="amount">inkøbs liste</label>
+        <br>
+        <input type="number" id="amount" placeholder="antalet af varen" required>
+
+        <button class="add">Tilføj item</button>
+        <button class="remove">Fjern item</button>
+        <button class="clear">Slet alle</button>
+    </div>
+
+    <ul class="to_do_list"></ul>
+
+    <script type="module" src="local_storage.js"></script>
+
+</body>
+
+</html>
