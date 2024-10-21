@@ -172,6 +172,7 @@ tr {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  max-width: 65ch;
   padding: 5px;
 
   &:not(:last-child) {

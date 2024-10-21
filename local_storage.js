@@ -1,7 +1,7 @@
 import { $, $$ } from "../utils/dom.js";
 
 $(".add").addEventListener("mousedown", add);
-$(".remove").addEventListener("mousedown", remove);
+
 $(".clear").addEventListener("mousedown", clear);
 
 //her tjekker vi om vi bruger localstorge
@@ -23,23 +23,24 @@ function makeItem(text) {
 }
 
 function add() {
-  const toDOitem = {
-    item: $("#item").value.trim(),
-    amount: $("#amount").value.trim(),
-  };
+  //her tjekker jeg om input feltet er tomt, og hvis det er så giver laver den en alart
+  if ($("#item").value.trim()) {
+    const toDOitem = {
+      item: $("#item").value.trim(),
+      amount: $("#amount").value.trim(),
+    };
 
-  toDoArr.push(toDOitem);
+    toDoArr.push(toDOitem);
 
-  localStorage.setItem("items", JSON.stringify(toDoArr));
+    localStorage.setItem("items", JSON.stringify(toDoArr));
 
-  //vi laver det første objekt inde todoaray
-  makeItem(toDoArr[toDoArr.length - 1]);
+    //vi laver det første objekt inde todoaray
+    makeItem(toDoArr[toDoArr.length - 1]);
 
-  $("input").value = " ";
-}
-
-function remove() {
-  console.log("hello");
+    $("input").value = " ";
+  } else {
+    alert("Tilføj et elemnt!");
+  }
 }
 
 function clear() {
