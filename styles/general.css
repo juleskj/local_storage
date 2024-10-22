@@ -221,3 +221,11 @@ tr {
   text-transform: capitalize;
   border-radius: var(--border-radius);
 }
+
+.delete {
+  background-color: rgb(235, 40, 40);
+  color: var(--white);
+  padding-inline: 20px;
+  text-transform: capitalize;
+  border-radius: var(--border-radius);
+}

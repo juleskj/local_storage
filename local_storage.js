@@ -9,24 +9,25 @@ let toDoArr = localStorage.getItem("items")
   ? JSON.parse(localStorage.getItem("items"))
   : [];
 
-let doneArr = localStorage.getItem("items")
-  ? JSON.parse(localStorage.getItem("items"))
+let doneArr = localStorage.getItem("checkedItems")
+  ? JSON.parse(localStorage.getItem("checkedItems"))
   : [];
 
 toDoArr.forEach(makeItem);
+doneArr.forEach(makeCheckedItem);
 
 //her laver jeg mine todo elementer med input valuen
 //text er blevet sent fra add() som er input valuen
 function makeItem(text) {
-  // const li = document.createElement("li");
   const tr = document.createElement("tr");
 
   tr.innerHTML =
     `<td>${text.amount || "1"}  </td>` +
     `<td>${text.item}</td>` +
-    `<button class="check">check</button>`;
+    `<button class="check">check</button>` +
+    `<button class="delete">delete</button>`;
 
-  $("tbody").appendChild(tr);
+  $(".to_do_list").appendChild(tr);
 }
 
 function add() {
@@ -50,9 +51,88 @@ function add() {
   }
 }
 
-function checkPush() {
-  console.log("check");
+//event listerne for button for knap og skal sende data videre
+$("tbody").addEventListener("click", (event) => {
+  if (
+    event.target.tagName === "BUTTON" &&
+    event.target.classList.contains("check")
+  ) {
+    //her retunere closest det første element som matcher
+    //udtrykket altså tr
+    const row = event.target.closest("tr");
+    //her tager jeg elementerne fra den tr jeg får tilbage
+    const textItem = row.querySelector("td:nth-child(2)").textContent;
+    const amountItem = row.querySelector("td:nth-child(1)").textContent;
+
+    //her laver jeg det nye checkItem objekt
+    const checkItem = {
+      item: textItem,
+      amount: amountItem,
+    };
+
+    //puter obejtet ind i det nye localstorage
+    doneArr.push(checkItem);
+    localStorage.setItem("checkedItems", JSON.stringify(doneArr));
+
+    row.remove();
+
+    //fjerne det nyeobejt fra toDoArr
+    toDoArr = toDoArr.filter((item) => item.item !== textItem);
+    localStorage.setItem("items", JSON.stringify(toDoArr));
+
+    makeCheckedItem(checkItem);
+  }
+});
+
+function makeCheckedItem(text) {
+  const tr = document.createElement("tr");
+
+  tr.innerHTML =
+    `<td>${text.amount || "1"}  </td>` +
+    `<td>${text.item}</td>` +
+    `<button class="undo">undo</button>` +
+    `<button class="delete">delete</button>`;
+
+  $(".checked_list").appendChild(tr);
 }
+
+$(".to_do_list").addEventListener("click", (event) => {
+  if (
+    event.target.tagName === "BUTTON" &&
+    event.target.classList.contains("delete")
+  ) {
+    //her retunere closest det første element som matcher
+    //udtrykket altså tr
+    const row = event.target.closest("tr");
+    //her tager jeg elementerne fra den tr jeg får tilbage
+    const textItem = row.querySelector("td:nth-child(2)").textContent;
+
+    row.remove();
+
+    //fjerne det nyeobejt fra toDoArr
+    toDoArr = toDoArr.filter((item) => item.item !== textItem);
+    localStorage.setItem("items", JSON.stringify(toDoArr));
+  }
+});
+
+$(".checked_list").addEventListener("click", (event) => {
+  if (
+    event.target.tagName === "BUTTON" &&
+    event.target.classList.contains("delete")
+  ) {
+    //her retunere closest det første element som matcher
+    //udtrykket altså tr
+    const row = event.target.closest("tr");
+    //her tager jeg elementerne fra den tr jeg får tilbage
+    const textItem = row.querySelector("td:nth-child(2)").textContent;
+
+    row.remove();
+
+    //fjerne det nyeobejt fra toDoArr
+    doneArr = doneArr.filter((item) => item.item !== textItem);
+    localStorage.setItem("checkedItems", JSON.stringify(doneArr));
+  }
+});
 
 function clear() {
   localStorage.clear();
