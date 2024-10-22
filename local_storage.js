@@ -5,16 +5,16 @@ $(".add").addEventListener("mousedown", add);
 $(".clear").addEventListener("mousedown", clear);
 
 //her tjekker vi om vi bruger localstorge
-let toDoArr = localStorage.getItem("items")
-  ? JSON.parse(localStorage.getItem("items"))
+let toDoArr = localStorage.getItem("toDo")
+  ? JSON.parse(localStorage.getItem("toDo"))
   : [];
 
-let doneArr = localStorage.getItem("checkedItems")
-  ? JSON.parse(localStorage.getItem("checkedItems"))
+let checkArr = localStorage.getItem("checked")
+  ? JSON.parse(localStorage.getItem("checked"))
   : [];
 
 toDoArr.forEach(makeItem);
-doneArr.forEach(makeCheckedItem);
+checkArr.forEach(makeCheckedItem);
 
 //her laver jeg mine todo elementer med input valuen
 //text er blevet sent fra add() som er input valuen
@@ -46,14 +46,14 @@ function makeCheckedItem(text) {
 function add() {
   //her tjekker jeg om input feltet er tomt, og hvis det er så giver laver den en alart
   if ($("#item").value.trim()) {
-    const toDOitem = {
+    const toDoitem = {
       item: $("#item").value.trim(),
       amount: $("#amount").value.trim(),
     };
 
-    toDoArr.push(toDOitem);
+    toDoArr.push(toDoitem);
 
-    localStorage.setItem("items", JSON.stringify(toDoArr));
+    localStorage.setItem("toDo", JSON.stringify(toDoArr));
 
     //vi laver det første objekt inde todoaray
     makeItem(toDoArr[toDoArr.length - 1]);
@@ -74,8 +74,8 @@ $("tbody").addEventListener("click", (event) => {
     //udtrykket altså tr
     const row = event.target.closest("tr");
     //her tager jeg elementerne fra den tr jeg får tilbage
-    const textItem = row.querySelector("td:nth-child(2)").textContent;
-    const amountItem = row.querySelector("td:nth-child(1)").textContent;
+    const textItem = row.querySelector("td:nth-child(2)").textContent.trim();
+    const amountItem = row.querySelector("td:nth-child(1)").textContent.trim();
 
     //her laver jeg det nye checkItem objekt
     const checkItem = {
@@ -84,14 +84,17 @@ $("tbody").addEventListener("click", (event) => {
     };
 
     //puter obejtet ind i det nye localstorage
-    doneArr.push(checkItem);
-    localStorage.setItem("checkedItems", JSON.stringify(doneArr));
+    checkArr.push(checkItem);
+    localStorage.setItem("checked", JSON.stringify(checkArr));
 
     row.remove();
 
-    //fjerne det nyeobejt fra toDoArr
+    //fjerne det objektet fra toDoArr hvis det har den
     toDoArr = toDoArr.filter((item) => item.item !== textItem);
-    localStorage.setItem("items", JSON.stringify(toDoArr));
+
+    console.log("after filtering toDoArr:", toDoArr);
+
+    localStorage.setItem("toDo", JSON.stringify(toDoArr));
 
     makeCheckedItem(checkItem);
   }
@@ -113,7 +116,7 @@ $(".to_do_list").addEventListener("click", (event) => {
 
     //fjerne det nyeobejt fra toDoArr
     toDoArr = toDoArr.filter((item) => item.item !== textItem);
-    localStorage.setItem("items", JSON.stringify(toDoArr));
+    localStorage.setItem("toDo", JSON.stringify(toDoArr));
   }
 });
 
@@ -132,8 +135,8 @@ $(".checked_list").addEventListener("click", (event) => {
     row.remove();
 
     //fjerne det nyeobejt fra toDoArr
-    doneArr = doneArr.filter((item) => item.item !== textItem);
-    localStorage.setItem("checkedItems", JSON.stringify(doneArr));
+    checkArr = checkArr.filter((item) => item.item !== textItem);
+    localStorage.setItem("checked", JSON.stringify(checkArr));
   }
 });
 
