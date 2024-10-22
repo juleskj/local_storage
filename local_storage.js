@@ -101,43 +101,39 @@ $("tbody").addEventListener("click", (event) => {
 });
 
 //delete for to do liste
-$(".to_do_list").addEventListener("click", (event) => {
-  if (
-    event.target.tagName === "BUTTON" &&
-    event.target.classList.contains("delete")
-  ) {
-    //her retunere closest det første element som matcher
-    //udtrykket altså tr
-    const row = event.target.closest("tr");
-    //her tager jeg elementerne fra den tr jeg får tilbage
-    const textItem = row.querySelector("td:nth-child(2)").textContent;
+$$("tbody").forEach((tbody) => {
+  tbody.addEventListener("click", (event) => {
+    if (
+      event.target.tagName === "BUTTON" &&
+      event.target.classList.contains("delete")
+    ) {
+      //her retunere closest det første element som matcher udtrykket tr
+      const row = event.target.closest("tr");
 
-    row.remove();
+      //her tager jeg elementerne fra den tr jeg får tilbage
+      const textItem = row.querySelector("td:nth-child(2)").textContent.trim();
 
-    //fjerne det nyeobejt fra toDoArr
-    toDoArr = toDoArr.filter((item) => item.item !== textItem);
-    localStorage.setItem("toDo", JSON.stringify(toDoArr));
-  }
-});
+      row.remove();
 
-//delete for checkListe
-$(".checked_list").addEventListener("click", (event) => {
-  if (
-    event.target.tagName === "BUTTON" &&
-    event.target.classList.contains("delete")
-  ) {
-    //her retunere closest det første element som matcher
-    //udtrykket altså tr
-    const row = event.target.closest("tr");
-    //her tager jeg elementerne fra den tr jeg får tilbage
-    const textItem = row.querySelector("td:nth-child(2)").textContent;
+      //kigger på hvilke liste der bliver klikket
+      let clickedList = event.currentTarget.getAttribute("class").trim();
 
-    row.remove();
+      console.log(row);
+      console.log(clickedList);
 
-    //fjerne det nyeobejt fra toDoArr
-    checkArr = checkArr.filter((item) => item.item !== textItem);
-    localStorage.setItem("checked", JSON.stringify(checkArr));
-  }
+      // sletter to do item
+      if (clickedList === "to_do_list") {
+        toDoArr = toDoArr.filter((item) => item.item !== textItem);
+        localStorage.setItem("toDo", JSON.stringify(toDoArr));
+      }
+
+      // sletter check list item
+      if (clickedList === "checked_list") {
+        checkArr = checkArr.filter((item) => item.item !== textItem);
+        localStorage.setItem("checked", JSON.stringify(checkArr));
+      }
+    }
+  });
 });
 
 //fjerner alle elementer fra begge locale storages
