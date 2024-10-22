@@ -30,6 +30,19 @@ function makeItem(text) {
   $(".to_do_list").appendChild(tr);
 }
 
+//her laver jeg mine andre tr elemener for tjek listen
+function makeCheckedItem(text) {
+  const tr = document.createElement("tr");
+
+  tr.innerHTML =
+    `<td>${text.amount || "1"}  </td>` +
+    `<td>${text.item}</td>` +
+    `<button class="undo">undo</button>` +
+    `<button class="delete">delete</button>`;
+
+  $(".checked_list").appendChild(tr);
+}
+
 function add() {
   //her tjekker jeg om input feltet er tomt, og hvis det er så giver laver den en alart
   if ($("#item").value.trim()) {
@@ -84,18 +97,7 @@ $("tbody").addEventListener("click", (event) => {
   }
 });
 
-function makeCheckedItem(text) {
-  const tr = document.createElement("tr");
-
-  tr.innerHTML =
-    `<td>${text.amount || "1"}  </td>` +
-    `<td>${text.item}</td>` +
-    `<button class="undo">undo</button>` +
-    `<button class="delete">delete</button>`;
-
-  $(".checked_list").appendChild(tr);
-}
-
+//delete for to do liste
 $(".to_do_list").addEventListener("click", (event) => {
   if (
     event.target.tagName === "BUTTON" &&
@@ -115,6 +117,7 @@ $(".to_do_list").addEventListener("click", (event) => {
   }
 });
 
+//delete for checkListe
 $(".checked_list").addEventListener("click", (event) => {
   if (
     event.target.tagName === "BUTTON" &&
@@ -134,6 +137,7 @@ $(".checked_list").addEventListener("click", (event) => {
   }
 });
 
+//fjerner alle elementer fra begge locale storages
 function clear() {
   localStorage.clear();
   $("tbody").innerHTML = " ";
