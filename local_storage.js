@@ -22,7 +22,7 @@ function makeItem(text) {
   const tr = document.createElement("tr");
 
   tr.innerHTML =
-    `<td>${text.amount || "1"}  </td>` +
+    `<td>${text.amount}  </td>` +
     `<td>${text.item}</td>` +
     `<button class="check">check</button>` +
     `<button class="delete">delete</button>`;
@@ -35,7 +35,7 @@ function makeCheckedItem(text) {
   const tr = document.createElement("tr");
 
   tr.innerHTML =
-    `<td>${text.amount || "1"}  </td>` +
+    `<td>${text.amount}  </td>` +
     `<td>${text.item}</td>` +
     `<button class="undo">undo</button>` +
     `<button class="delete">delete</button>`;
@@ -48,7 +48,7 @@ function add() {
   if ($("#item").value.trim()) {
     const toDoitem = {
       item: $("#item").value.trim(),
-      amount: $("#amount").value.trim(),
+      amount: $("#amount").value.trim() ? $("#amount").value.trim() : 1,
     };
 
     toDoArr.push(toDoitem);
