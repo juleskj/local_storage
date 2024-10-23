@@ -20,9 +20,9 @@
   --beige: #efeae6;
   --black: #131313;
   --white: #fffef5;
-  --orange: #e9543b;
-  --blue: #3b4294;
-  --light-blue: #94d4ee;
+  --red: rgb(235, 40, 40);
+  --green: rgb(178, 237, 178);
+  --blue: rgb(124, 175, 237);
   --yellow: #f4c872;
   /* font sizes */
 
@@ -115,10 +115,6 @@ h6 {
   --flow-space: 0.5rlh;
 }
 
-em {
-  color: var(--orange);
-}
-
 button {
   --flow-space: 0.5rlh;
 }
@@ -126,6 +122,8 @@ button {
 main {
   justify-items: center;
 }
+
+/****************** container style ******************/
 
 .to_do_container {
   padding: 20px;
@@ -141,13 +139,19 @@ main {
   width: fit-content;
 }
 
+button:hover {
+  outline-offset: 2px;
+  transition: 0.2s;
+}
+
+/****************** form style ******************/
 form {
   & :is(button, input) {
-    background-color: rgb(216, 216, 216);
-    outline: rgb(72, 72, 72) 2px solid;
+    outline: var(--black) 2px solid;
     border-radius: var(--border-radius);
     padding: 5px;
   }
+
   & .input_div {
     display: grid;
     grid-template-columns: 25% auto;
@@ -165,36 +169,56 @@ form {
     gap: 1rem 0.5rem;
 
     & .clear {
-      background-color: rgb(235, 40, 40);
+      background-color: var(--red);
       color: var(--white);
+    }
+
+    & .add {
+      background-color: var(--green);
+      color: var(--black);
     }
   }
 }
 
+/****************** table style ******************/
 table {
+  display: flex;
+  flex-flow: column;
   max-width: 65ch;
-  margin: 50px 0;
+  gap: 20px;
+
+  & tbody {
+    outline: solid 2px var(--black);
+    border-radius: var(--small-border-radius);
+    padding: var(--even-padding-xs);
+  }
+
+  & td:nth-child(3) {
+    word-break: break-all;
+  }
 
   & th {
     margin-right: auto;
   }
 }
 
+/****************** table row style ******************/
 tr {
-  text-transform: capitalize;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
   gap: 2rem;
 
+  text-transform: capitalize;
   padding: 5px;
 
   & td {
     margin: 5px 0;
   }
 
-  & td:first-child {
+  & .amount {
+    container-type: inline-size;
     display: grid;
     place-content: center;
 
@@ -202,34 +226,58 @@ tr {
     border-radius: var(--border-radius);
     background-color: var(--white);
 
-    width: 2rem;
-    height: 2rem;
-    outline: var(--black) 2px solid;
-
     margin-right: auto;
+    min-width: 2rem;
+    min-height: 2rem;
+
+    outline: var(--black) 2px solid;
   }
 
   &:not(:last-child) {
     border-bottom: 2px var(--black) dashed;
   }
 }
+
+/****************** button style ******************/
+
 .check,
-.delete,
 .undo {
+  display: grid;
+  place-content: center;
+  outline: var(--black) 2px solid;
+  border-radius: var(--border-radius);
+  min-width: 30px;
+  min-height: 30px;
+}
+
+.check {
+  &:hover {
+    color: var(--black);
+    background-color: var(--green);
+  }
+
+  &::after {
+    content: "✔";
+  }
+}
+
+.undo {
+  color: var(--black);
+  background-color: var(--blue);
+
+  &::after {
+    content: "✖";
+  }
+}
+
+.delete {
   color: var(--white);
   padding-inline: 20px;
   text-transform: capitalize;
   border-radius: var(--border-radius);
 }
 
-.check {
-  background-color: rgb(129, 211, 129);
-}
-
 .delete {
-  background-color: rgb(235, 40, 40);
-}
-
-.undo {
-  background-color: rgb(40, 173, 235);
+  outline: var(--black) 2px solid;
+  background-color: var(--red);
 }

@@ -23,9 +23,9 @@ function makeItem(text) {
   tr.setAttribute("data-id", text.id);
 
   tr.innerHTML =
-    `<td>${text.amount}  </td>` +
+    `<button class="check"></button>` +
+    `<td class="amount">${text.amount}  </td>` +
     `<td>${text.item}</td>` +
-    `<button class="check">check</button>` +
     `<button class="delete">delete</button>`;
 
   $(".to_do_list").appendChild(tr);
@@ -37,9 +37,9 @@ function makeCheckedItem(text) {
   tr.setAttribute("data-id", text.id);
 
   tr.innerHTML =
-    `<td>${text.amount}  </td>` +
+    `<button class="undo"></button>` +
+    `<td class="amount">${text.amount}  </td>` +
     `<td>${text.item}</td>` +
-    `<button class="undo">undo</button>` +
     `<button class="delete">delete</button>`;
 
   $(".checked_list").appendChild(tr);
@@ -81,9 +81,9 @@ $$("tbody").forEach((tbody) => {
       //udtrykket altså tr
       const row = event.target.closest("tr");
       //her tager jeg elementerne fra den tr jeg får tilbage
-      const textItem = row.querySelector("td:nth-child(2)").textContent.trim();
+      const textItem = row.querySelector("td:nth-child(3)").textContent.trim();
       const amountItem = row
-        .querySelector("td:nth-child(1)")
+        .querySelector("td:nth-child(2)")
         .textContent.trim();
 
       const itemID = row.getAttribute("data-id");
