@@ -144,9 +144,42 @@ button:hover {
   transition: 0.2s;
 }
 
+.button_div {
+  display: grid;
+  grid-template-columns: auto auto;
+
+  gap: 1rem;
+  width: 100%;
+
+  & button {
+    outline: var(--black) 2px solid;
+    border-radius: var(--border-radius);
+    padding: 5px;
+  }
+
+  & .clear {
+    background-color: var(--red);
+    color: var(--white);
+  }
+
+  & .add {
+    background-color: var(--green);
+    color: var(--black);
+  }
+
+  .cancel {
+    background-color: var(--white);
+    color: var(--black);
+  }
+}
+
 /****************** form style ******************/
-form {
-  & :is(button, input) {
+.to_do_container {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 2rem;
+
+  & input {
     outline: var(--black) 2px solid;
     border-radius: var(--border-radius);
     padding: 5px;
@@ -155,27 +188,12 @@ form {
   & .input_div {
     display: grid;
     grid-template-columns: 25% auto;
+
     gap: 0.5rem;
 
     & ::placeholder {
       color: rgb(32, 32, 32);
       text-transform: capitalize;
-    }
-  }
-
-  & .button_div {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 1rem 0.5rem;
-
-    & .clear {
-      background-color: var(--red);
-      color: var(--white);
-    }
-
-    & .add {
-      background-color: var(--green);
-      color: var(--black);
     }
   }
 }
@@ -236,6 +254,30 @@ tr {
   &:not(:last-child) {
     border-bottom: 2px var(--black) dashed;
   }
+}
+
+/******************* pop up *******************/
+#popover::backdrop {
+  background-color: rgba(0, 0, 0, 0.733);
+}
+
+:popover-open {
+  margin: auto auto;
+  background-color: var(--black);
+  border-radius: var(--small-border-radius);
+  padding: var(--big-bottom-padding);
+
+  & h4 {
+    text-align: center;
+    color: var(--white);
+  }
+}
+
+form {
+  display: flex;
+  flex-flow: wrap column;
+  align-items: center;
+  gap: 1rem;
 }
 
 /****************** button style ******************/

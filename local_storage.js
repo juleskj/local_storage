@@ -61,7 +61,9 @@ function add() {
     //vi laver det første objekt inde todoaray
     makeItem(toDoArr[toDoArr.length - 1]);
 
-    $("input").value = " ";
+    $("#amount").value = "";
+
+    $("#item").value = "";
   } else {
     alert("Tilføj et elemnt!");
   }
@@ -166,5 +168,7 @@ $$("tbody").forEach((tbody) => {
 //fjerner alle elementer fra begge locale storages
 function clear() {
   localStorage.clear();
-  $("tbody").innerHTML = " ";
+  $$("tbody").forEach((tbody) => {
+    tbody.innerHTML = " ";
+  });
 }

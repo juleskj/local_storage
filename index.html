@@ -9,24 +9,39 @@
 </head>
 
 <body>
+
+
     <main>
-        <div class="to_do_container">
-            <h1>Mine indkøb</h1>
-            <form>
-                <div class="input_div">
-                    <input type="number" id="amount" placeholder="antalet">
-                    <input type="text" id="item" placeholder="mad vare">
-                </div>
-
-                <br>
+        <div popover id="popover">
+            <form action="/" id="login">
+                <h4>er du sikker på du vil slette alt?</h4>
                 <div class="button_div">
-                    <button class="add">Tilføj item</button>
-
-                    <button class="clear">Slet alle</button>
+                    <button class="clear">Delete</button>
+                    <button class="cancel">cancel</button>
                 </div>
             </form>
+        </div>
 
+        <!-- <div popover id="popover">
+            <form action="#" id="login">
+                <p>hello</p>
 
+            </form>
+        </div> -->
+        <div class="to_do_container">
+            <h1>Mine indkøb</h1>
+
+            <div class="input_div">
+                <input type="number" id="amount" placeholder="antalet">
+                <input type="text" id="item" placeholder="mad vare">
+            </div>
+
+            <div class="button_div">
+                <button class="add">Tilføj item</button>
+
+                <button popoverTarget="popover" class="delete">Slet alle</button>
+            </div>
+            <!-- class="clear" -->
         </div>
 
 
