@@ -20,6 +20,7 @@ checkArr.forEach(makeCheckedItem);
 //text er blevet sent fra add() som er input valuen
 function makeItem(text) {
   const tr = document.createElement("tr");
+  tr.setAttribute("data-id", text.id);
 
   tr.innerHTML =
     `<td>${text.amount}  </td>` +
@@ -33,6 +34,7 @@ function makeItem(text) {
 //her laver jeg mine andre tr elemener for tjek listen
 function makeCheckedItem(text) {
   const tr = document.createElement("tr");
+  tr.setAttribute("data-id", text.id);
 
   tr.innerHTML =
     `<td>${text.amount}  </td>` +
@@ -47,6 +49,7 @@ function add() {
   //her tjekker jeg om input feltet er tomt, og hvis det er så giver laver den en alart
   if ($("#item").value.trim()) {
     const toDoitem = {
+      id: Date.now(),
       item: $("#item").value.trim(),
       amount: $("#amount").value.trim() ? $("#amount").value.trim() : 1,
     };
@@ -65,39 +68,62 @@ function add() {
 }
 
 //event listerne for button for knap og skal sende data videre
-$("tbody").addEventListener("click", (event) => {
-  if (
-    event.target.tagName === "BUTTON" &&
-    event.target.classList.contains("check")
-  ) {
-    //her retunere closest det første element som matcher
-    //udtrykket altså tr
-    const row = event.target.closest("tr");
-    //her tager jeg elementerne fra den tr jeg får tilbage
-    const textItem = row.querySelector("td:nth-child(2)").textContent.trim();
-    const amountItem = row.querySelector("td:nth-child(1)").textContent.trim();
+$$("tbody").forEach((tbody) => {
+  tbody.addEventListener("click", (event) => {
+    if (
+      (event.target.tagName === "BUTTON" &&
+        event.target.classList.contains("check")) ||
+      (event.target.tagName === "BUTTON" &&
+        event.target.classList.contains("undo"))
+    ) {
+      console.log("check");
+      //her retunere closest det første element som matcher
+      //udtrykket altså tr
+      const row = event.target.closest("tr");
+      //her tager jeg elementerne fra den tr jeg får tilbage
+      const textItem = row.querySelector("td:nth-child(2)").textContent.trim();
+      const amountItem = row
+        .querySelector("td:nth-child(1)")
+        .textContent.trim();
 
-    //her laver jeg det nye checkItem objekt
-    const checkItem = {
-      item: textItem,
-      amount: amountItem,
-    };
+      const itemID = row.getAttribute("data-id");
 
-    //puter obejtet ind i det nye localstorage
-    checkArr.push(checkItem);
-    localStorage.setItem("checked", JSON.stringify(checkArr));
+      //her laver jeg det nye checkItem objekt
+      const newItem = {
+        id: parseInt(itemID),
+        item: textItem.trim(),
+        amount: amountItem.trim(),
+      };
 
-    row.remove();
+      let clickedList = event.target.getAttribute("class").trim();
+      console.log(clickedList);
 
-    //fjerne det objektet fra toDoArr hvis det har den
-    toDoArr = toDoArr.filter((item) => item.item !== textItem);
+      row.remove();
 
-    console.log("after filtering toDoArr:", toDoArr);
+      if (clickedList === "check") {
+        //tilføjer objektet til checkArr
+        checkArr.push(newItem);
+        //updatere arrayet
+        localStorage.setItem("checked", JSON.stringify(checkArr));
 
-    localStorage.setItem("toDo", JSON.stringify(toDoArr));
+        //fjerne det objektet fra toDoArr hvis det har den og derefter updatere storaget
+        toDoArr = toDoArr.filter((item) => item.id !== parseInt(itemID));
+        localStorage.setItem("toDo", JSON.stringify(toDoArr));
 
-    makeCheckedItem(checkItem);
-  }
+        makeCheckedItem(newItem);
+      } else if (clickedList === "undo") {
+        console.log("clicked");
+
+        toDoArr.push(newItem);
+        localStorage.setItem("toDo", JSON.stringify(toDoArr));
+
+        checkArr = checkArr.filter((item) => item.id !== parseInt(itemID));
+        localStorage.setItem("checked", JSON.stringify(checkArr));
+
+        makeItem(newItem);
+      }
+    }
+  });
 });
 
 //delete for to do liste
@@ -109,27 +135,28 @@ $$("tbody").forEach((tbody) => {
     ) {
       //her retunere closest det første element som matcher udtrykket tr
       const row = event.target.closest("tr");
-
-      //her tager jeg elementerne fra den tr jeg får tilbage
-      const textItem = row.querySelector("td:nth-child(2)").textContent.trim();
+      //id
+      const itemId = row.getAttribute("data-id").trim();
 
       row.remove();
+
+      console.log(itemId);
 
       //kigger på hvilke liste der bliver klikket
       let clickedList = event.currentTarget.getAttribute("class").trim();
 
-      console.log(row);
-      console.log(clickedList);
+      console.log(`slettede fra:` + clickedList);
 
       // sletter to do item
       if (clickedList === "to_do_list") {
-        toDoArr = toDoArr.filter((item) => item.item !== textItem);
+        //sammenligner id
+        toDoArr = toDoArr.filter((item) => item.id !== parseInt(itemId));
         localStorage.setItem("toDo", JSON.stringify(toDoArr));
       }
 
       // sletter check list item
       if (clickedList === "checked_list") {
-        checkArr = checkArr.filter((item) => item.item !== textItem);
+        checkArr = checkArr.filter((item) => item.id !== parseInt(itemId));
         localStorage.setItem("checked", JSON.stringify(checkArr));
       }
     }

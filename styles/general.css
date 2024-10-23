@@ -213,19 +213,23 @@ tr {
     border-bottom: 2px var(--black) dashed;
   }
 }
-
-.check {
-  background-color: rgb(129, 211, 129);
+.check,
+.delete,
+.undo {
   color: var(--white);
   padding-inline: 20px;
   text-transform: capitalize;
   border-radius: var(--border-radius);
 }
 
+.check {
+  background-color: rgb(129, 211, 129);
+}
+
 .delete {
   background-color: rgb(235, 40, 40);
-  color: var(--white);
-  padding-inline: 20px;
-  text-transform: capitalize;
-  border-radius: var(--border-radius);
+}
+
+.undo {
+  background-color: rgb(40, 173, 235);
 }
