@@ -69,18 +69,16 @@ function add() {
   }
 }
 
-//event listerne for button for knap og skal sende data videre
+//event listerne for button som enden skal undo eller checke et objekt.
 $$("tbody").forEach((tbody) => {
   tbody.addEventListener("click", (event) => {
     if (
       (event.target.tagName === "BUTTON" &&
         event.target.classList.contains("check")) ||
-      (event.target.tagName === "BUTTON" &&
-        event.target.classList.contains("undo"))
+      event.target.classList.contains("undo")
     ) {
       console.log("check");
-      //her retunere closest det første element som matcher
-      //udtrykket altså tr
+      //her retunere closest det første element som matcher udtrykket altså tr
       const row = event.target.closest("tr");
       //her tager jeg elementerne fra den tr jeg får tilbage
       const textItem = row.querySelector("td:nth-child(3)").textContent.trim();
@@ -94,7 +92,7 @@ $$("tbody").forEach((tbody) => {
       const newItem = {
         id: parseInt(itemID),
         item: textItem.trim(),
-        amount: amountItem.trim(),
+        amount: parseInt(amountItem),
       };
 
       let clickedList = event.target.getAttribute("class").trim();
@@ -105,6 +103,7 @@ $$("tbody").forEach((tbody) => {
       if (clickedList === "check") {
         //tilføjer objektet til checkArr
         checkArr.push(newItem);
+
         //updatere arrayet
         localStorage.setItem("checked", JSON.stringify(checkArr));
 
@@ -114,8 +113,6 @@ $$("tbody").forEach((tbody) => {
 
         makeCheckedItem(newItem);
       } else if (clickedList === "undo") {
-        console.log("clicked");
-
         toDoArr.push(newItem);
         localStorage.setItem("toDo", JSON.stringify(toDoArr));
 
@@ -168,7 +165,8 @@ $$("tbody").forEach((tbody) => {
 //fjerner alle elementer fra begge locale storages
 function clear() {
   localStorage.clear();
+
   $$("tbody").forEach((tbody) => {
-    tbody.innerHTML = " ";
+    tbody.innerHTML = "";
   });
 }
