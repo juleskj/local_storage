@@ -51,7 +51,7 @@ function add() {
     const toDoitem = {
       id: Date.now(),
       item: $("#item").value.trim(),
-      amount: $("#amount").value.trim() ? $("#amount").value.trim() : 1,
+      amount: parseInt($("#amount").value) ? parseInt($("#amount").value) : 1,
     };
 
     toDoArr.push(toDoitem);
